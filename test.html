@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visitor Logger</title>
+    <script>
+        function logVisitor() {
+            // Get user agent
+            var userAgent = navigator.userAgent;
+            
+            // Get IP address from a third-party service (this is just an example)
+            var ipAddress = '';
+            fetch('https://api64.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    ipAddress = data.ip;
+                    
+                    // Log user agent and IP in local storage
+                    var logEntry = 'User Agent: ' + userAgent + ', IP Address: ' + ipAddress;
+                    var existingLog = localStorage.getItem('log') || '';
+                    var newLog = existingLog + logEntry + '\n';
+                    localStorage.setItem('log', newLog);
+                    
+                    // Display log on the web page
+                    var logContainer = document.getElementById('logContainer');
+                    logContainer.innerHTML = newLog.replace(/\n/g, '<br>');
+                })
+                .catch(error => {
+                    console.error('Error fetching IP address:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to our website!</h1>
+    <button onclick="logVisitor()">Log Visitor</button>
+    <div id="logContainer">
+        <!-- Logged data will be displayed here -->
+    </div>
+</body>
+</html>
