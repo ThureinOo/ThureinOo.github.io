@@ -430,9 +430,21 @@
       <span>&copy; 2026 Thurein Oo</span>
       <span class="footer-dot"></span>
       <a href="https://www.linkedin.com/in/thureinoo/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <span class="footer-dot"></span>
+      <span id="gc-views">...</span> views
     </footer>
 
   </div>
+
+  <!-- GoatCounter analytics -->
+  <script data-goatcounter="https://thureinoo.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  <script>
+    fetch('https://thureinoo.goatcounter.com/counter/%2F.json')
+      .then(r => r.json())
+      .then(data => { document.getElementById('gc-views').innerText = data.count; })
+      .catch(() => { document.getElementById('gc-views').innerText = '—'; });
+  </script>
 
   <script>
     function setTheme(t) {
