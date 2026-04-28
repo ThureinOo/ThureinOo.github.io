@@ -292,7 +292,7 @@ body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var
 <body>
 <div class="app">
 <div class="sidebar">
-  <div class="sidebar-header"><h1>PENTEST MAPPER</h1><p>Attack Surface Mapper</p></div>
+  <div class="sidebar-header"><h1>PENTEST MAPPER</h1><p>Attack Surface Mapper</p><p id="pm-views" style="font-size:10px;color:var(--muted);margin-top:4px;font-family:monospace;opacity:0.6">— views</p></div>
   <div class="theme-toggle">
     <button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')">Dark</button>
     <button class="theme-btn" id="lightBtn" onclick="setTheme('light')">Light</button>
@@ -2679,6 +2679,21 @@ handleHash();
 renderSidebar();
 render();
 renderCreds();
+</script>
+<script data-goatcounter="https://penmap.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+  const gcPaths = [location.pathname, "/penmap.html", "/"].map(p => encodeURIComponent(p || "/"));
+  (async () => {
+    const el = document.getElementById("pm-views");
+    for (const p of gcPaths) {
+      try {
+        const r = await fetch(`https://penmap.goatcounter.com/counter/${p}.json`);
+        if (!r.ok) continue;
+        const d = await r.json();
+        if (d && d.count && d.count !== "0") { el.textContent = d.count + " views"; return; }
+      } catch (_) {}
+    }
+  })();
 </script>
 </body>
 </html>
