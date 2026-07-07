@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thurein Oo - Cybersecurity</title>
+  <style>
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #131c2e;
+      --border: #1e2d45;
+      --accent: #38bdf8;
+      --text: #cbd5e1;
+      --muted: #94a3b8;
+      --heading: #f1f5f9;
+      --cert-bg: rgba(56, 189, 248, 0.1);
+      --htb-border: rgba(159, 239, 0, 0.25);
+      --soon-bg: rgba(251, 191, 36, 0.12);
+      --edu-done-bg: #131c2e;
+      --edu-done-border: #1e2d45;
+      --edu-done-status: #34d399;
+      --edu-done-degree: #94a3b8;
+      --edu-active-bg: rgba(56, 189, 248, 0.08);
+      --edu-active-border: rgba(56, 189, 248, 0.3);
+      --edu-active-status: #38bdf8;
+      --edu-active-degree: #f1f5f9;
+      --edu-school: #64748b;
+      --footer-color: #475569;
+      --footer-link: #64748b;
+      --footer-dot: #334155;
+      --toggle-bg: #131c2e;
+      --toggle-border: #1e2d45;
+      --toggle-active-bg: #38bdf8;
+      --toggle-active-color: #0b1120;
+      --toggle-inactive-color: #64748b;
+      --tl-dot-border: #0b1120;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --accent: #0369a1;
+      --text: #334155;
+      --muted: #64748b;
+      --heading: #0f172a;
+      --cert-bg: rgba(3, 105, 161, 0.07);
+      --htb-border: rgba(77, 124, 15, 0.25);
+      --soon-bg: rgba(217, 119, 6, 0.1);
+      --edu-done-bg: #f8fafc;
+      --edu-done-border: #e2e8f0;
+      --edu-done-status: #059669;
+      --edu-done-degree: #475569;
+      --edu-active-bg: rgba(3, 105, 161, 0.05);
+      --edu-active-border: rgba(3, 105, 161, 0.25);
+      --edu-active-status: #0369a1;
+      --edu-active-degree: #0f172a;
+      --edu-school: #64748b;
+      --footer-color: #94a3b8;
+      --footer-link: #64748b;
+      --footer-dot: #cbd5e1;
+      --toggle-bg: #f8fafc;
+      --toggle-border: #e2e8f0;
+      --toggle-active-bg: #0369a1;
+      --toggle-active-color: #fff;
+      --toggle-inactive-color: #94a3b8;
+      --tl-dot-border: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+      padding: 56px 24px 32px;
+    }
+
+    .container {
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 5px;
+      letter-spacing: -0.3px;
+      transition: color 0.3s;
+    }
+
+    .tagline {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .bio {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+      text-align: justify;
+      text-justify: inter-word;
+      transition: color 0.3s;
+    }
+
+    .cert-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .cert-tag {
+      font-size: 11px;
+      padding: 2px 9px;
+      border-radius: 10px;
+      background: var(--cert-bg);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .htb-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 8px;
+    }
+
+    .htb-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 72px;
+      transition: transform 0.2s;
+    }
+
+    .htb-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .htb-item img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      transition: filter 0.2s;
+    }
+
+    .htb-item:hover img {
+      filter: drop-shadow(0 0 10px var(--htb-border));
+    }
+
+    .htb-name {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+
+    .cert-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cert-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      transition: color 0.3s;
+    }
+
+    .cert-list li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: background 0.3s;
+    }
+
+    .cert-list li a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .cert-list li a:hover {
+      text-decoration: underline;
+    }
+
+    .cert-list li code {
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: 11px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--cert-bg);
+      color: var(--accent);
+    }
+
+    .cve-pending {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .cert-list li .cve-title {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .cert-list li .cve-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 3px;
+      transition: color 0.3s;
+    }
+
+    .subsection-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+      transition: border-color 0.3s;
+    }
+
+    .section-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    /* Education */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .edu-card {
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: left;
+      transition: all 0.3s;
+    }
+
+    .edu-card.done {
+      background: var(--edu-done-bg);
+      border: 1px solid var(--edu-done-border);
+    }
+
+    .edu-card.active {
+      background: var(--edu-active-bg);
+      border: 1px solid var(--edu-active-border);
+    }
+
+    .edu-status {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    .edu-card.done .edu-status {
+      color: var(--edu-done-status);
+    }
+
+    .edu-card.active .edu-status {
+      color: var(--edu-active-status);
+    }
+
+    .edu-degree {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 3px;
+      transition: color 0.3s;
+    }
+
+    .edu-card.done .edu-degree {
+      color: var(--edu-done-degree);
+    }
+
+    .edu-card.active .edu-degree {
+      color: var(--edu-active-degree);
+    }
+
+    .edu-school {
+      font-size: 11px;
+      color: var(--edu-school);
+      transition: color 0.3s;
+    }
+
+    .edu-focus {
+      font-size: 11px;
+      color: var(--accent);
+      opacity: 0.7;
+      margin-top: 2px;
+      transition: color 0.3s;
+    }
+
+    /* Links */
+    .links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s, background 0.3s;
+      text-align: left;
+    }
+
+    .link-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .link-card.dim {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .link-icon {
+      font-size: 18px;
+      width: 26px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .link-text h3 {
+      font-size: 14px;
+      color: var(--heading);
+      font-weight: 500;
+      margin-bottom: 2px;
+      transition: color 0.3s;
+    }
+
+    .link-text p {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0;
+      transition: color 0.3s;
+    }
+
+    .soon-badge {
+      font-size: 9px;
+      background: var(--soon-bg);
+      color: #f59e0b;
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-left: 4px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--footer-color);
+      transition: color 0.3s;
+    }
+
+    .footer-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--footer-dot);
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    footer a {
+      color: var(--footer-link);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 3px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 8px;
+      padding: 4px;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+
+    .theme-btn {
+      padding: 5px 12px;
+      border: none;
+      background: none;
+      color: var(--toggle-inactive-color);
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .theme-btn.active {
+      background: var(--toggle-active-bg);
+      color: var(--toggle-active-color);
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="theme-toggle">
+    <button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')">Dark</button>
+    <button class="theme-btn" id="lightBtn" onclick="setTheme('light')">Light</button>
+  </div>
+
+  <div class="container">
+
+    <h1>Thurein Oo</h1>
+    <div class="tagline">Cybersecurity Analyst</div>
+
+    <p class="bio">Cybersecurity analyst with nearly four years of experience across Security Operations, Incident
+      Response, Digital Forensics, Detection Engineering, and Application Security. Experienced in SOC operations, SIEM
+      and EDR investigations, threat hunting, and detection development with Sigma and YARA. Strong background in Web,
+      Mobile, and API security testing, and Active Directory penetration testing. Currently interested in security
+      research &mdash; finding root causes and learning new attack techniques.</p>
+
+    <hr class="divider">
+
+    <div class="section-label">Certifications</div>
+    <ul class="cert-list">
+      <li>eLearnSecurity Certified Threat Hunting Professional (eCTHPv2)</li>
+      <li>eLearnSecurity Certified Incident Responder (eCIR)</li>
+      <li>Offensive Security Wireless Professional (OSWP)</li>
+      <li>Multi-Cloud Red Team Analyst (MCRTA)</li>
+    </ul>
+
+    <div class="subsection-label">HTB Prolabs</div>
+    <div class="htb-strip">
+      <div class="htb-item">
+        <img src="assets/htb/dante.svg" alt="Dante">
+        <span class="htb-name">Dante</span>
+      </div>
+      <div class="htb-item">
+        <img src="assets/htb/zephyr.svg" alt="Zephyr">
+        <span class="htb-name">Zephyr</span>
+      </div>
+      <div class="htb-item">
+        <img src="assets/htb/offshore.svg" alt="Offshore">
+        <span class="htb-name">Offshore</span>
+      </div>
+      <div class="htb-item">
+        <img src="assets/htb/poo.png" alt="P.O.O.">
+        <span class="htb-name">P.O.O.</span>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-label">Education</div>
+    <div class="edu-grid">
+      <div class="edu-card done">
+        <div class="edu-status">Completed</div>
+        <div class="edu-degree">Diploma in Secretarial Management</div>
+        <div class="edu-school">Yangon University of Economics</div>
+      </div>
+      <div class="edu-card done">
+        <div class="edu-status">Completed</div>
+        <div class="edu-degree">B.Sc (Hons) Physics</div>
+        <div class="edu-school">Yangon University</div>
+      </div>
+      <div class="edu-card done">
+        <div class="edu-status">Completed</div>
+        <div class="edu-degree">PG Diploma Computer Science</div>
+        <div class="edu-school">Yangon University</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-label">Recent CVEs</div>
+    <ul class="cert-list">
+      <li>
+        <div class="cve-title">
+          <a href="https://github.com/OpenPrinting/cups/security/advisories/GHSA-jj94-x3qh-ffp9" target="_blank" rel="noopener">CVE-2026-55480</a>
+          &mdash; OpenPrinting CUPS
+        </div>
+        <div class="cve-desc">Symlink TOCTOU in <code>copy_model()</code> &rarr; arbitrary root file write</div>
+      </li>
+      <li>
+        <div class="cve-title">
+          <a href="https://github.com/OpenPrinting/cups/security/advisories/GHSA-69qc-prxg-h2c7" target="_blank" rel="noopener">CVE-2026-55467</a>
+          &mdash; OpenPrinting CUPS
+        </div>
+        <div class="cve-desc">Fax option bypasses control-char sanitizer (incomplete CVE-2026-34980 fix)</div>
+      </li>
+      <li>
+        <div class="cve-title">
+          <span class="cve-pending">CVE-2026-XXXX (pending)</span>
+          &mdash; accountsservice / systemd-homed
+        </div>
+        <div class="cve-desc">Arbitrary root file read via <code>SetIconFile</code></div>
+      </li>
+    </ul>
+
+    <hr class="divider">
+
+    <div class="section-label">Links</div>
+    <div class="links-grid">
+      <a href="https://thureinoo.github.io/senshu/#" class="link-card">
+        <div class="link-icon"><img src="https://thureinoo.github.io/senshu/assets/logo.svg" alt="Senshu" style="width:22px;height:22px;"></div>
+        <div class="link-text">
+          <h3>Senshu</h3>
+          <p>Pentest commands &amp; cheatsheet</p>
+        </div>
+      </a>
+      <a href="https://github.com/ThureinOo/Security-Research" class="link-card">
+        <div class="link-icon">📝</div>
+        <div class="link-text">
+          <h3>Security Research</h3>
+          <p>Research, writeups &amp; vulnerabilities</p>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <span>&copy; 2026 Thurein Oo</span>
+      <span class="footer-dot"></span>
+      <a href="https://www.linkedin.com/in/thureinoo/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <span class="footer-dot"></span>
+      <span id="gc-views">...</span> views
+    </footer>
+
+  </div>
+
+  <!-- GoatCounter analytics -->
+  <script data-goatcounter="https://thureinoo.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  <script>
+    fetch('https://thureinoo.goatcounter.com/counter/%2F.json')
+      .then(r => r.json())
+      .then(data => { document.getElementById('gc-views').innerText = data.count; })
+      .catch(() => { document.getElementById('gc-views').innerText = '—'; });
+  </script>
+
+  <script>
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('profile-theme', t);
+      document.getElementById('darkBtn').className = 'theme-btn' + (t === 'dark' ? ' active' : '');
+      document.getElementById('lightBtn').className = 'theme-btn' + (t === 'light' ? ' active' : '');
+    }
+    (function () {
+      const t = localStorage.getItem('profile-theme');
+      if (t) setTheme(t);
+    })();
+  </script>
+
+</body>
+
+</html>
